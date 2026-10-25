@@ -1,0 +1,383 @@
+# JAVA NOTES — DAY 02
+## Topic: JVM, JRE, JDK and First Java Program
+
+### 1. Quick Recap
+
+Java is a high-level, object-oriented programming language.
+
+**Java execution flow:**
+
+Java Source Code → Compiler → Bytecode → JVM → Execution
+
+- `.java` → Java source code
+- `javac` → Java compiler
+- `.class` → Bytecode
+- JVM → Executes bytecode
+
+Java supports platform independence through bytecode and compatible JVM implementations.
+
+---
+
+### 2. Hierarchy of JVM, JRE and JDK
+
+**JDK = JRE + Development Tools**
+
+Traditionally, the JRE includes the JVM and the runtime libraries required to run Java applications.
+
+Relationship:
+
+```text
+JDK
+ |
+ |-- Development Tools
+ |      |
+ |      |-- javac
+ |      |-- javadoc
+ |      |-- debugger
+ |
+ |-- Runtime Components (JRE concept)
+        |
+        |-- JVM
+        |
+        |-- Java Libraries
+```
+
+**Remember:**
+- JDK → Develop Java programs.
+- JRE → Run Java programs.
+- JVM → Execute Java bytecode.
+
+**Important:** Modern Java distributions do not always provide a separate JRE installation. The diagram explains the traditional conceptual relationship.
+
+---
+
+### 3. JVM in Depth
+
+**Definition:** JVM stands for Java Virtual Machine. It is an abstract machine that executes Java bytecode.
+
+The JVM acts as an execution environment between Java bytecode and the underlying computer.
+
+#### Main components of the JVM
+
+**1. Class Loader Subsystem**
+
+Loads compiled class files into the JVM.
+
+**2. Runtime Data Areas**
+
+Memory areas used during program execution.
+
+Important areas include:
+- Heap
+- Java stacks
+- Method area
+- Program counter registers
+- Native method stacks
+
+**3. Execution Engine**
+
+Executes bytecode using interpretation and Just-In-Time (JIT) compilation.
+
+**4. Garbage Collector**
+
+Automatically reclaims memory occupied by objects that are no longer reachable, when appropriate.
+
+#### JVM execution flow
+
+```text
+.class File
+     |
+     v
+Class Loader
+     |
+     v
+Runtime Data Areas
+     |
+     v
+Execution Engine
+     |
+     v
+Program Execution
+```
+
+**Memory trick:** Load → Store → Execute.
+
+---
+
+### 4. Compiler vs. Interpreter
+
+#### Compiler
+
+A compiler translates source code into another form before execution.
+
+In Java, `javac` compiles Java source code into bytecode.
+
+#### Interpreter
+
+An interpreter executes instructions by processing them during execution.
+
+The JVM can interpret bytecode instructions.
+
+#### Difference
+
+| Compiler | Interpreter |
+|---|---|
+| Translates code before execution | Executes instructions during execution |
+| Java's `javac` produces bytecode | JVM can interpret bytecode |
+| Compilation happens before execution | Interpretation happens during execution |
+
+**Important:** Java uses both compilation and runtime execution techniques. The JVM may also use JIT compilation to translate frequently executed bytecode into native machine code.
+
+---
+
+### 5. Role of JVM
+
+The JVM performs several important functions:
+
+1. Loads Java classes.
+2. Verifies bytecode.
+3. Manages runtime memory.
+4. Executes bytecode.
+5. Supports garbage collection.
+6. Provides a runtime environment for Java applications.
+
+**Most important role:** The JVM executes Java bytecode.
+
+#### Why is Java platform-independent?
+
+Java source code is compiled into platform-neutral bytecode.
+
+Different platforms can execute that bytecode using compatible JVM implementations.
+
+```text
+                 Java Source
+                      |
+                      v
+                   Compiler
+                      |
+                      v
+                   Bytecode
+                 /     |     \
+                v      v      v
+           Windows   Linux   macOS
+             JVM      JVM     JVM
+                \      |      /
+                 Program Runs
+```
+
+The same compatible bytecode can run on different platforms without recompiling the source code for each platform.
+
+---
+
+### 6. JRE — Java Runtime Environment
+
+**Definition:** JRE stands for Java Runtime Environment.
+
+It refers to the runtime components needed to run Java applications.
+
+Traditionally, it includes:
+- JVM
+- Java class libraries
+- Other supporting runtime components
+
+**Purpose:** To provide an environment for running Java applications.
+
+**Example:** A user who only needs to run a Java application does not necessarily need the full development toolset.
+
+**Remember:** JRE = Runtime Environment.
+
+---
+
+### 7. JDK — Java Development Kit
+
+**Definition:** JDK stands for Java Development Kit.
+
+It provides the tools required to develop Java applications.
+
+It includes:
+- Java compiler (`javac`)
+- Java launcher (`java`)
+- Debugging and documentation tools
+- Java runtime components
+
+**Purpose:** To write, compile, debug, and run Java programs.
+
+#### Difference between JVM, JRE and JDK
+
+| Feature | JVM | JRE | JDK |
+|---|---|---|---|
+| Full form | Java Virtual Machine | Java Runtime Environment | Java Development Kit |
+| Main purpose | Execute bytecode | Run Java applications | Develop Java applications |
+| Compiler included | No | Traditionally no | Yes |
+| Executes bytecode | Yes | Through JVM | Through runtime components |
+
+**Exam answer:**
+
+JVM executes bytecode, JRE provides the runtime environment, and JDK provides the development tools required to create Java applications.
+
+---
+
+### 8. JSE, JME and JEE
+
+These names represent Java editions or platforms designed for different application requirements.
+
+#### 1. Java SE — Java Standard Edition
+
+Provides the core Java language and libraries.
+
+**Uses:**
+- Basic Java programs
+- Desktop applications
+- Core programming concepts
+
+Examples: Variables, loops, classes, collections and file handling.
+
+#### 2. Java EE — Java Enterprise Edition
+
+Provides enterprise application technologies built on Java SE.
+
+**Uses:**
+- Enterprise applications
+- Web applications
+- Large server-side systems
+
+Java EE is now known as **Jakarta EE**.
+
+#### 3. Java ME — Java Micro Edition
+
+Designed for certain resource-constrained and embedded environments.
+
+**Uses:**
+- Embedded devices
+- Resource-constrained systems
+- Certain small-device applications
+
+#### Comparison
+
+| Edition | Main purpose |
+|---|---|
+| Java SE | Core Java development |
+| Java EE / Jakarta EE | Enterprise and server-side applications |
+| Java ME | Certain embedded and resource-constrained devices |
+
+**Remember:** SE = Standard, EE = Enterprise, ME = Micro.
+
+---
+
+### 9. Writing Our First Java Program
+
+#### Program
+
+```java
+public class Demo {
+    public static void main(String[] args) {
+        System.out.println("Hello World");
+    }
+}
+```
+
+#### Output
+
+```text
+Hello World
+```
+
+#### Explanation
+
+**1. `public class Demo`**
+
+Declares a class named `Demo`.
+
+**2. `public static void main(String[] args)`**
+
+Declares the main method, which is the standard entry point used to launch a Java application.
+
+- `public` → Makes the method accessible to the launcher.
+- `static` → Allows the method to be called without creating an instance of the class.
+- `void` → The method does not return a value.
+- `main` → Method name.
+- `String[] args` → Receives command-line arguments.
+
+**3. `System.out.println("Hello World");`**
+
+Prints `Hello World` to the console and moves to the next line.
+
+**4. Braces `{ }`**
+
+Mark the beginning and end of blocks.
+
+**5. Semicolon `;`**
+
+Marks the end of this Java statement.
+
+---
+
+### 10. How to Compile and Run the Program
+
+Save the program in a file named:
+
+`Demo.java`
+
+Open the VS Code terminal in the folder containing the file.
+
+**Step 1: Compile**
+
+```bash
+javac Demo.java
+```
+
+If compilation succeeds, Java produces:
+
+`Demo.class`
+
+This file contains bytecode.
+
+**Step 2: Run**
+
+```bash
+java Demo
+```
+
+Output:
+
+```text
+Hello World
+```
+
+Do not include `.java` or `.class` in the command `java Demo`.
+
+#### Complete execution flow
+
+```text
+Demo.java
+    |
+    v
+javac Demo.java
+    |
+    v
+Demo.class
+    |
+    v
+java Demo
+    |
+    v
+JVM Executes Bytecode
+    |
+    v
+Hello World
+```
+
+---
+
+## Final Revision
+
+1. JVM executes Java bytecode.
+2. JRE refers to the runtime environment.
+3. JDK provides Java development tools.
+4. `javac` compiles Java source code into bytecode.
+5. The JVM can interpret bytecode and use JIT compilation.
+6. Java achieves platform independence through compatible JVM implementations.
+7. Java SE provides core Java functionality.
+8. Java EE evolved into Jakarta EE.
+9. Java ME targets certain embedded and resource-constrained environments.
+10. The standard entry point of a typical Java application is the `main()` method.
