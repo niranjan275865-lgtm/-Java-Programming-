@@ -1,0 +1,483 @@
+## 1. Variables in Java
+
+**Definition:** A variable is a named storage location used to store a value in a program.
+
+**Syntax:**
+```java
+dataType variableName = value;
+```
+
+**Example:**
+```java
+int age = 20;
+```
+
+- `int` → Data type
+- `age` → Variable name
+- `20` → Value
+- `=` → Assignment operator
+
+**Uses of variables:**
+1. Store data.
+2. Perform calculations.
+3. Reuse values.
+4. Update values when required.
+
+Example:
+```java
+int x = 2;
+int y = 3;
+
+System.out.println(x + y);
+```
+
+Output:
+```text
+5
+```
+
+## 2. Identifiers
+
+**Definition:** An identifier is a name given to a programming element, such as a variable, class, or method.
+
+Examples: `age`, `studentName`, `Demo`, `main`.
+
+### Rules for identifiers
+
+1. Can contain letters, digits, underscores (`_`), and dollar signs (`$`).
+2. Cannot start with a digit.
+3. Cannot contain spaces.
+4. Cannot be a reserved keyword.
+5. Java identifiers are case-sensitive.
+
+Examples:
+
+Valid:
+```java
+int age = 20;
+int student1 = 10;
+int total_marks = 90;
+```
+
+Invalid:
+```java
+int 1age = 20;
+int student age = 10;
+```
+
+**Remember:** `age` and `Age` are different identifiers.
+
+## 3. Black Box Model of Learning
+
+The black box model explains a system in terms of its input and output without initially examining its internal working.
+
+**Flow:**
+
+Input → Processing → Output
+
+Example:
+
+- Input: 2 and 3
+- Processing: Addition
+- Output: 5
+
+A calculator is a simple example of a black box system.
+
+## 4. Data Types in Java
+
+**Definition:** A data type specifies the kind of value a variable can store.
+
+Java data types are divided into two categories:
+
+1. Primitive data types
+2. Non-primitive or reference types
+
+### Eight primitive data types
+
+| Category | Data type | Size |
+|---|---|---|
+| Integer | `byte` | 8 bits |
+| Integer | `short` | 16 bits |
+| Integer | `int` | 32 bits |
+| Integer | `long` | 64 bits |
+| Floating-point | `float` | 32 bits |
+| Floating-point | `double` | 64 bits |
+| Character | `char` | 16 bits |
+| Logical | `boolean` | JVM-dependent storage representation |
+
+**Memory trick:**
+
+- 4 integer types
+- 2 floating-point types
+- 1 character type
+- 1 boolean type
+
+Total = **8 primitive data types.**
+
+## 5. Integer Data Types
+
+**Definition:** Integer data types store whole numbers without fractional parts.
+
+Examples: `10`, `-20`, `0`.
+
+| Data type | Size | Minimum | Maximum |
+|---|---:|---:|---:|
+| `byte` | 8 bits | -128 | 127 |
+| `short` | 16 bits | -32,768 | 32,767 |
+| `int` | 32 bits | -2³¹ | 2³¹ − 1 |
+| `long` | 64 bits | -2⁶³ | 2⁶³ − 1 |
+
+### Formula for signed integer ranges
+
+Minimum = −2ⁿ⁻¹
+
+Maximum = 2ⁿ⁻¹ − 1
+
+Here, `n` represents the number of bits.
+
+**Example: `byte`**
+
+Number of bits = 8.
+
+Minimum = −2⁷ = −128
+
+Maximum = 2⁷ − 1 = 127
+
+Example:
+```java
+byte age = 20;
+int population = 100000;
+long largeNumber = 9000000000L;
+```
+
+The suffix `L` indicates a `long` integer literal.
+
+## 6. Representing Binary Numbers
+
+**Definition:** Binary is a number system that uses only two digits: `0` and `1`.
+
+Decimal uses ten digits: `0` to `9`.
+
+### Binary to decimal conversion
+
+Example: Convert binary `1010` to decimal.
+
+| Binary digit | 1 | 0 | 1 | 0 |
+|---|---:|---:|---:|---:|
+| Place value | 2³ | 2² | 2¹ | 2⁰ |
+| Value | 8 | 4 | 2 | 1 |
+
+Calculation:
+
+1010₂ = (1 × 8) + (0 × 4) + (1 × 2) + (0 × 1)
+
+= 8 + 0 + 2 + 0
+
+= **10**
+
+### Number of binary combinations
+
+For `n` bits:
+
+Number of combinations = 2ⁿ
+
+For an unsigned number:
+
+Minimum = 0
+
+Maximum = 2ⁿ − 1
+
+Example: For 8 unsigned bits, the range is 0 to 255.
+
+**Important:** Java's `byte` is signed, so its range is −128 to 127.
+
+## 7. Floating-Point Data Types
+
+**Definition:** Floating-point types represent numbers that may contain fractional parts.
+
+Examples: `5.23`, `10.02`, `3.14`.
+
+Java provides two floating-point types:
+
+| Type | Size | Precision |
+|---|---:|---|
+| `float` | 32 bits | Single precision |
+| `double` | 64 bits | Double precision |
+
+Example:
+```java
+float price = 10.5f;
+double salary = 25000.75;
+```
+
+**Important points:**
+
+1. `float` uses 32 bits.
+2. `double` uses 64 bits.
+3. Decimal floating-point literals are `double` by default.
+4. Use `f` or `F` to specify a `float` literal.
+5. `double` generally provides greater precision than `float`.
+
+## 8. Range of Real Numbers
+
+Floating-point types can represent fractional values and numbers with very large or very small magnitudes.
+
+Approximate positive finite ranges:
+
+| Type | Approximate range |
+|---|---|
+| `float` | 1.4 × 10⁻⁴⁵ to 3.4 × 10³⁸ |
+| `double` | 4.9 × 10⁻³²⁴ to 1.8 × 10³⁰⁸ |
+
+### Range vs. precision
+
+- **Range:** The magnitude of values a type can represent.
+- **Precision:** How accurately a value can be represented.
+
+Floating-point calculations may produce small rounding errors because some decimal fractions cannot be represented exactly in binary.
+
+## 9. Character Data Type
+
+**Definition:** `char` is a primitive data type that represents a 16-bit UTF-16 code unit.
+
+Example:
+```java
+char grade = 'A';
+char symbol = '#';
+char digit = '5';
+```
+
+Character literals use single quotation marks.
+
+### Unicode
+
+Unicode assigns code points to characters from many writing systems.
+
+Java uses UTF-16 code units for its `char` type.
+
+### ASCII examples
+
+| Character | Decimal value |
+|---|---:|
+| `A` | 65 |
+| `a` | 97 |
+| `0` | 48 |
+
+Example:
+```java
+System.out.println((int) 'A');
+```
+
+Output:
+```text
+65
+```
+
+**Important:** A Java `char` does not necessarily represent an entire Unicode character. Some characters, such as many emoji, require two UTF-16 code units.
+
+## 10. Boolean Data Type
+
+**Definition:** The `boolean` data type represents a logical value.
+
+It has only two possible values:
+
+- `true`
+- `false`
+
+Example:
+```java
+boolean isPassed = true;
+boolean isRaining = false;
+```
+
+Example using a condition:
+```java
+int age = 20;
+boolean isAdult = age >= 18;
+
+System.out.println(isAdult);
+```
+
+Output:
+```text
+true
+```
+
+**Remember:** Java does not treat `0` and `1` as boolean values.
+
+## 11. Literals
+
+**Definition:** A literal is a fixed value written directly in source code.
+
+| Literal type | Example |
+|---|---|
+| Integer | `100` |
+| Long | `100L` |
+| Float | `10.5f` |
+| Double | `10.5` |
+| Character | `'A'` |
+| Boolean | `true` |
+| String | `"Hello"` |
+
+Example:
+```java
+int age = 20;
+```
+
+Here:
+- `age` → Variable and identifier
+- `20` → Integer literal
+- `int` → Data type
+
+**Remember:** A variable is a named storage location; a literal is a value written directly in the code.
+
+## 12. Writing Code for All Data Types
+
+```java
+public class DataTypesDemo {
+    public static void main(String[] args) {
+
+        byte a = 100;
+        short b = 1000;
+        int c = 50000;
+        long d = 9000000000L;
+
+        float e = 10.5f;
+        double f = 99.99;
+
+        char g = 'A';
+        boolean h = true;
+
+        System.out.println(a);
+        System.out.println(b);
+        System.out.println(c);
+        System.out.println(d);
+        System.out.println(e);
+        System.out.println(f);
+        System.out.println(g);
+        System.out.println(h);
+    }
+}
+```
+
+### Output
+
+```text
+100
+1000
+50000
+9000000000
+10.5
+99.99
+A
+true
+```
+
+## 13. Alternative Ways to Declare Variables
+
+### Method 1: Declaration and initialization together
+
+```java
+int x = 5;
+```
+
+### Method 2: Declaration first, initialization later
+
+```java
+int x;
+x = 5;
+```
+
+### Method 3: Declare multiple variables
+
+```java
+int a = 10, b = 20, c = 30;
+```
+
+### Method 4: Declare multiple variables and assign values later
+
+```java
+int a, b, c;
+
+a = 10;
+b = 20;
+c = 30;
+```
+
+**Important:** A local variable must be assigned a value before it is used.
+
+## 14. Declaration, Initialization and Assignment
+
+### Declaration
+
+Introduces a variable.
+
+```java
+int x;
+```
+
+### Initialization
+
+Gives a variable its initial value.
+
+```java
+int x = 5;
+```
+
+### Assignment
+
+Assigns or changes the variable's value.
+
+```java
+x = 10;
+```
+
+### Difference
+
+| Term | Example | Meaning |
+|---|---|---|
+| Declaration | `int x;` | Introduces the variable |
+| Initialization | `int x = 5;` | Gives the initial value |
+| Assignment | `x = 10;` | Assigns a value |
+
+**Remember:** `int x = 5;` performs both declaration and initialization.
+
+## 15. Keywords in Java
+
+**Definition:** Keywords are reserved words with predefined meanings in Java.
+
+Examples:
+
+`class`, `public`, `static`, `void`, `int`, `double`, `if`, `else`, `for`, `while`, `return`.
+
+Example:
+```java
+public class Demo {
+    public static void main(String[] args) {
+        int age = 20;
+        System.out.println(age);
+    }
+}
+```
+
+Here, `class`, `public`, `static`, `void`, and `int` are keywords.
+
+`System`, `out`, and `println` are not Java keywords.
+
+**Important:** Java also has reserved words such as `goto` and `const` that are not used as ordinary language keywords.
+
+## FINAL REVISION
+
+1. Variable → Named storage location.
+2. Identifier → Name of a programming element.
+3. Data type → Specifies the kind of value.
+4. Binary → Uses `0` and `1`.
+5. Integer range → −2ⁿ⁻¹ to 2ⁿ⁻¹ − 1 for signed `n`-bit integers.
+6. `float` → 32 bits.
+7. `double` → 64 bits.
+8. `char` → 16-bit UTF-16 code unit.
+9. `boolean` → `true` or `false`.
+10. Literal → Fixed value written in source code.
+11. Declaration → Introduces a variable.
+12. Initialization → Gives the initial value.
+13. Keyword → Reserved word in Java.
