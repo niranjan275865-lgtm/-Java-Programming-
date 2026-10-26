@@ -1,0 +1,557 @@
+Here are your **Java Day-04 final notes**, mainly following your uploaded handwritten PDF and organized according to the YouTube topics. I’ve kept them in the same notebook-friendly style as your previous notes, with important formulas and examples for revision.
+
+# JAVA NOTES — DAY 04
+## Topic: Negative Numbers and Floating-Point Numbers
+
+### 1. Introduction
+
+Computers store all data in binary form using **0s and 1s**.
+
+Numbers are mainly represented as:
+1. Integer numbers — examples: 10, −42, 100
+2. Floating-point numbers — examples: 8.125, 0.7, 32.4186
+
+In Java:
+- `int` and `byte` store integer values.
+- `float` and `double` store floating-point values.
+
+---
+
+### 2. Problem with Floating-Point Numbers
+
+Floating-point numbers cannot represent every decimal number exactly in binary.
+
+**Example:**
+```java
+float a = 0.7f;
+System.out.println(a);
+```
+
+A decimal number such as `0.7` may have a repeating binary representation. Since a `float` has limited precision, the stored value may be slightly different from the original value.
+
+**Important points:**
+- Some decimal numbers are represented exactly.
+- Some decimal numbers have repeating binary representations.
+- Floating-point types have limited precision.
+- Small rounding errors can occur during calculations.
+
+**Remember:** Floating-point values are approximations for many decimal numbers.
+
+---
+
+### 3. How Negative Numbers Are Stored
+
+A Java `byte` uses **8 bits**.
+
+Its range is:
+
+**−128 to +127**
+
+Example:
+```java
+byte b = 42;
+System.out.println(b);
+```
+
+The positive number 42 in 8-bit binary is:
+
+42 = 00101010
+
+To represent −42, Java uses **two's complement**.
+
+---
+
+### 4. Two's Complement
+
+Two's complement is a method used to represent negative integers in binary.
+
+**Steps to find the two's complement of a number:**
+
+1. Convert the positive number to binary.
+2. Invert every bit: change 0 to 1 and 1 to 0. This is the one's complement.
+3. Add 1 to the result. This gives the two's complement.
+
+**Example: Represent −42 using 8 bits**
+
+**Step 1: Convert +42 to binary**
+
+42 = 00101010
+
+**Step 2: Find one's complement**
+
+00101010 → 11010101
+
+**Step 3: Add 1**
+
+```text
+  11010101
++ 00000001
+-----------
+  11010110
+```
+
+Therefore:
+
+**−42 = 11010110** in 8-bit two's complement.
+
+Java example:
+```java
+byte b = -42;
+System.out.println(b);
+```
+
+Output:
+```text
+-42
+```
+
+**Important:** Java uses two's complement to represent signed integer values.
+
+---
+
+### 5. MSB and LSB
+
+**MSB — Most Significant Bit**
+- The leftmost bit in a binary number.
+- In a signed two's-complement integer, it helps indicate the sign.
+
+**LSB — Least Significant Bit**
+- The rightmost bit in a binary number.
+- It represents the \(2^0\) place.
+
+Example:
+
+```text
+Binary:  11010110
+         ↑      ↑
+         MSB    LSB
+```
+
+For an 8-bit signed integer:
+- MSB = 0 → non-negative number.
+- MSB = 1 → negative number.
+
+**Remember:** MSB is on the left; LSB is on the right.
+
+---
+
+### 6. Case of Zero
+
+Zero has only one representation in the standard two's-complement integer system.
+
+For an 8-bit signed integer:
+
+```text
+00000000 = 0
+```
+
+If we apply the two's-complement procedure to zero:
+
+**Step 1:**
+```text
+00000000
+```
+
+**Step 2: Invert the bits**
+```text
+11111111
+```
+
+**Step 3: Add 1**
+```text
+  11111111
++ 00000001
+-----------
+1 00000000
+```
+
+Keeping only 8 bits gives:
+
+```text
+00000000
+```
+
+The carry beyond the 8-bit representation is discarded.
+
+Therefore, zero remains zero.
+
+**Important:** Two's complement has only one representation for zero.
+
+---
+
+### 7. How Floating-Point Numbers Are Stored
+
+Java uses the IEEE 754 floating-point representation for `float` and `double`.
+
+#### A. Float — 32 bits
+
+A `float` occupies 32 bits.
+
+| Field | Number of bits | Purpose |
+|---|---:|---|
+| Sign | 1 | Represents the sign |
+| Exponent | 8 | Represents the exponent using a bias |
+| Fraction (mantissa/significand field) | 23 | Stores the fraction bits |
+| **Total** | **32** | |
+
+The value is represented conceptually as:
+
+**Value = (−1)ˢ × 1.M × 2ᴱ**
+
+Where:
+- `s` = sign bit
+- `M` = fraction bits
+- `E` = actual exponent after removing the bias
+
+For normal binary floating-point numbers, the leading `1` is implicit and is not stored in the fraction field.
+
+#### B. Double — 64 bits
+
+A `double` occupies 64 bits.
+
+| Field | Number of bits |
+|---|---:|
+| Sign | 1 |
+| Exponent | 11 |
+| Fraction (mantissa/significand field) | 52 |
+| **Total** | **64** |
+
+**Remember:**
+- `float` → 32 bits
+- `double` → 64 bits
+- `double` provides greater precision than `float`.
+
+---
+
+### 8. Converting a Decimal Fraction to Binary
+
+To convert a decimal fraction into binary, repeatedly multiply the fractional part by 2.
+
+**Example: Convert 0.125 to binary**
+
+| Multiplication | Integer part |
+|---|---:|
+| 0.125 × 2 = 0.25 | 0 |
+| 0.25 × 2 = 0.5 | 0 |
+| 0.5 × 2 = 1.0 | 1 |
+
+Read the integer parts from top to bottom.
+
+Therefore:
+
+**0.125 = 0.001₂**
+
+Example:
+```text
+8.125 = 1000.001₂
+```
+
+To normalize it:
+
+```text
+1000.001₂ = 1.000001₂ × 2³
+```
+
+This form is used when representing the number in floating-point format.
+
+---
+
+### 9. Non-Exact Conversion
+
+Some decimal fractions cannot be represented exactly using a finite number of binary digits.
+
+**Example: 0.7**
+
+Repeated multiplication by 2 begins as follows:
+
+| Multiplication | Integer part |
+|---|---:|
+| 0.7 × 2 = 1.4 | 1 |
+| 0.4 × 2 = 0.8 | 0 |
+| 0.8 × 2 = 1.6 | 1 |
+| 0.6 × 2 = 1.2 | 1 |
+| 0.2 × 2 = 0.4 | 0 |
+| 0.4 × 2 = 0.8 | 0 |
+
+The process continues without reaching a fractional part of zero.
+
+Therefore, **0.7 has a repeating binary representation**.
+
+Because `float` and `double` have limited storage space, the value must be rounded to a representable binary value.
+
+Java example:
+```java
+float a = 0.7f;
+double b = 0.7;
+
+System.out.println(a);
+System.out.println(b);
+```
+
+The `float` and `double` values may differ slightly from the exact mathematical value of 0.7.
+
+**Important:** Do not rely on direct equality comparisons for floating-point calculations when rounding errors may matter.
+
+---
+
+### 10. Bias in Floating-Point Numbers
+
+The exponent is stored using a technique called **biased exponent representation**.
+
+Instead of storing the actual exponent directly, the computer adds a fixed bias.
+
+**Formula:**
+
+Stored exponent = Actual exponent + Bias
+
+Therefore:
+
+Actual exponent = Stored exponent − Bias
+
+#### Float
+
+- Exponent size = 8 bits
+- Bias = 127
+
+**Example:**
+
+For 8.125:
+
+```text
+8.125 = 1.000001₂ × 2³
+```
+
+Actual exponent = 3
+
+Stored exponent = 3 + 127 = 130
+
+130 in 8-bit binary:
+
+```text
+10000010
+```
+
+Therefore, the exponent field is:
+
+**10000010**
+
+#### Double
+
+- Exponent size = 11 bits
+- Bias = 1023
+
+**Remember:**
+- Float bias = 127
+- Double bias = 1023
+
+---
+
+### 11. Expressing 8.125 as a Float in Memory
+
+Let us represent:
+
+```java
+float f = 8.125f;
+```
+
+**Step 1: Convert to binary**
+
+```text
+8.125 = 1000.001₂
+```
+
+**Step 2: Normalize**
+
+```text
+1000.001₂ = 1.000001₂ × 2³
+```
+
+**Step 3: Find the sign bit**
+
+The number is positive.
+
+```text
+Sign bit = 0
+```
+
+**Step 4: Calculate the stored exponent**
+
+Actual exponent = 3
+
+Bias = 127
+
+Stored exponent = 3 + 127 = 130
+
+130 in binary:
+
+```text
+10000010
+```
+
+**Step 5: Find the fraction field**
+
+The leading `1` is implicit, so store the bits after it:
+
+```text
+00000100000000000000000
+```
+
+This fraction field contains 23 bits.
+
+**Step 6: Combine all three fields**
+
+```text
+Sign       Exponent   Fraction
+  0        10000010   00000100000000000000000
+```
+
+Final 32-bit representation:
+
+```text
+01000001000000100000000000000000
+```
+
+Therefore, the 32-bit IEEE 754 representation of **8.125** is:
+
+**01000001000000100000000000000000**
+
+---
+
+### 12. Expressing 0.7 as a Float in Memory
+
+Consider:
+
+```java
+float f = 0.7f;
+```
+
+**Step 1: Convert the fraction to binary**
+
+Repeated multiplication produces a repeating binary expansion:
+
+```text
+0.7 ≈ 0.1011001100110011...₂
+```
+
+**Step 2: Normalize**
+
+```text
+0.101100110011...₂
+= 1.01100110011...₂ × 2⁻¹
+```
+
+Actual exponent = −1
+
+**Step 3: Find the sign bit**
+
+The number is positive.
+
+```text
+Sign bit = 0
+```
+
+**Step 4: Calculate the stored exponent**
+
+Stored exponent = Actual exponent + Bias
+
+```text
+= −1 + 127
+= 126
+```
+
+126 in binary:
+
+```text
+01111110
+```
+
+**Step 5: Store the fraction**
+
+The fraction field stores the first 23 fraction bits after the implicit leading `1`, rounded according to IEEE 754 rules.
+
+**Step 6: Combine the fields**
+
+```text
+Sign       Exponent   Fraction
+  0        01111110   01100110011001100110011
+```
+
+The fraction shown above is the rounded fraction field for the standard 32-bit representation of `0.7f`.
+
+**Important:** The stored value is an approximation, not the exact mathematical value 0.7.
+
+---
+
+### 13. Float vs Double
+
+| Feature | Float | Double |
+|---|---|---|
+| Size | 32 bits | 64 bits |
+| Sign bits | 1 | 1 |
+| Exponent bits | 8 | 11 |
+| Fraction bits | 23 | 52 |
+| Bias | 127 | 1023 |
+| Precision | About 6–7 decimal digits | About 15–16 decimal digits |
+| Java literal example | `0.7f` | `0.7` |
+
+**Remember:** In Java, a decimal literal such as `0.7` is a `double` by default. Use `f` or `F` to make it a `float`.
+
+---
+
+## Quick Revision — Day 04
+
+1. **Why are negative integers stored using two's complement?**  
+   It provides a convenient representation of negative numbers and supports binary arithmetic.
+
+2. **What is the range of Java `byte`?**  
+   −128 to +127.
+
+3. **What is MSB?**  
+   Most Significant Bit; the leftmost bit.
+
+4. **What is LSB?**  
+   Least Significant Bit; the rightmost bit.
+
+5. **How do you find two's complement?**  
+   Invert all bits and add 1.
+
+6. **How many bits does `float` use?**  
+   32 bits.
+
+7. **How many bits does `double` use?**  
+   64 bits.
+
+8. **What is the float exponent bias?**  
+   127.
+
+9. **What is the double exponent bias?**  
+   1023.
+
+10. **Why can 0.7 have a small representation error?**  
+    Its binary fraction repeats, so it cannot be represented exactly using a finite number of bits.
+
+11. **What is the normalized form of 8.125?**  
+    1.000001₂ × 2³.
+
+12. **What is the stored exponent for 8.125 as a float?**  
+    3 + 127 = 130 = 10000010₂.
+
+13. **Which has greater precision, `float` or `double`?**  
+    `double`.
+
+14. **What is the formula for the biased exponent?**  
+    Stored exponent = Actual exponent + Bias.
+
+---
+
+### Important Formulas to Remember
+
+- **Two's complement:** Invert all bits + 1
+- **Float:** 1 sign bit + 8 exponent bits + 23 fraction bits
+- **Double:** 1 sign bit + 11 exponent bits + 52 fraction bits
+- **Float bias:** 127
+- **Double bias:** 1023
+- **Stored exponent:** Actual exponent + Bias
+- **Actual exponent:** Stored exponent − Bias
+
+These notes follow the main concepts and worked examples in your uploaded PDF, especially the negative-number examples on pages 1–3 and the floating-point layouts and bias examples on pages 4–8. notes (1)
