@@ -1,0 +1,49 @@
+# Java Notes: Exception and IllegalThreadStateException
+
+## 1. Exception
+An exception is an event that disrupts the normal flow of a program during execution.
+
+Example: Dividing an integer by zero causes `ArithmeticException`.
+
+## 2. IllegalThreadStateException
+It is an unchecked exception that occurs when an operation is performed on a thread in an invalid state.
+
+Example: Starting the same thread more than once.
+
+## 3. Thread
+A thread is a small unit of execution within a program.
+
+## 4. start() Method
+The `start()` method starts a new thread and allows it to execute its task.
+
+Important: A thread object can be started only once.
+
+## 5. Example Program
+
+    class IllegalThreadStateDemo {
+        public static void main(String[] args) {
+            Thread t = new Thread(() -> {
+                System.out.println("Thread is running");
+            });
+
+            t.start();
+            t.start(); // Throws IllegalThreadStateException
+        }
+    }
+
+## 6. Output
+
+    Thread is running
+    Exception in thread "main" java.lang.IllegalThreadStateException
+
+Note: The order of the output lines may vary.
+
+## 7. Important Points
+- An exception disrupts normal program execution.
+- `IllegalThreadStateException` is an unchecked exception.
+- The `start()` method can be called only once on a thread object.
+- Calling `start()` again on the same thread object throws `IllegalThreadStateException`.
+- `try-catch` can be used to handle exceptions.
+
+## Memory Trick
+One thread object = One start() call.
