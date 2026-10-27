@@ -1,4 +1,3 @@
-Here are your **Java Day-04 final notes**, mainly following your uploaded handwritten PDF and organized according to the YouTube topics. I’ve kept them in the same notebook-friendly style as your previous notes, with important formulas and examples for revision.
 
 # JAVA NOTES — DAY 04
 ## Topic: Negative Numbers and Floating-Point Numbers
@@ -554,4 +553,3 @@ The fraction shown above is the rounded fraction field for the standard 32-bit r
 - **Stored exponent:** Actual exponent + Bias
 - **Actual exponent:** Stored exponent − Bias
 
-These notes follow the main concepts and worked examples in your uploaded PDF, especially the negative-number examples on pages 1–3 and the floating-point layouts and bias examples on pages 4–8. notes (1)
