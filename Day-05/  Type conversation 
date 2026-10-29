@@ -1,0 +1,134 @@
+JAVA NOTES — DAY 05
+TOPIC: TYPE CONVERSION & TYPE PROMOTION
+
+1. TYPE CONVERSION
+------------------
+Converting a value from one data type to another.
+
+Types:
+1. Implicit Conversion (Widening)
+   Automatic conversion.
+
+   Example:
+   int a = 10;
+   double b = a;  // 10.0
+
+2. Explicit Conversion (Narrowing)
+   Manual conversion using casting.
+
+   Example:
+   double a = 12.75;
+   int b = (int) a;  // 12
+
+
+2. RULES OF TYPE CONVERSION
+---------------------------
+1. Widening conversion usually happens automatically.
+2. Narrowing conversion generally requires explicit casting.
+3. Converting float/double to integer discards the decimal part.
+4. Boolean cannot be converted into numeric types using casting.
+5. Incompatible types like String and int need suitable
+   conversion methods.
+
+
+3. EXPLICIT CONVERSION
+----------------------
+Syntax:
+targetType variable = (targetType) value;
+
+Example:
+double d = 25.75;
+int i = (int) d;
+
+Output: 25
+
+Note: Casting may cause loss of information.
+
+
+4. TRUNCATING CONVERSION
+------------------------
+Truncation removes the fractional part toward zero.
+
+Examples:
+(int) 12.99  = 12
+(int) -12.99 = -12
+
+Remember:
+Truncation is not rounding.
+
+
+5. BOOLEAN CONVERSION
+---------------------
+Boolean stores only:
+true or false
+
+Example:
+boolean result = true;
+
+Boolean cannot be directly converted into int, float,
+or double using ordinary type casting.
+
+
+6. TYPE PROMOTION
+-----------------
+Type promotion automatically converts smaller numeric
+types into suitable types during expression evaluation.
+
+Example:
+byte a = 10;
+byte b = 20;
+int c = a + b;  // Result is int
+
+
+7. RULES OF TYPE PROMOTION
+--------------------------
+1. byte, short and char are promoted to int in most
+   arithmetic expressions.
+
+2. If one operand is double:
+   Result is generally double.
+
+3. Otherwise, if one operand is float:
+   Result is generally float.
+
+4. Otherwise, if one operand is long:
+   Result is generally long.
+
+5. Otherwise:
+   Result is generally int.
+
+Promotion order:
+double > float > long > int
+
+Example:
+int a = 10;
+double b = 5.5;
+double c = a + b;  // 15.5
+
+
+8. TYPE CONVERSION VS TYPE PROMOTION
+------------------------------------
+Type Conversion:
+Converts a value from one type to another.
+Example: double to int.
+
+Type Promotion:
+Promotes operands during expression evaluation.
+Example: byte + byte produces int.
+
+
+9. QUICK REVISION
+-----------------
+1. Implicit conversion = Automatic.
+2. Explicit conversion = Manual casting.
+3. Narrowing may lose information.
+4. Truncation removes the fractional part toward zero.
+5. Boolean is not a numeric type.
+6. byte + byte produces int.
+7. short + short produces int.
+8. char + char produces int.
+9. int + long produces long.
+10. int + float produces float.
+11. int + double produces double.
+
+END OF DAY-05
