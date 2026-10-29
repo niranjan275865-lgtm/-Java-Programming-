@@ -1,0 +1,216 @@
+TOPIC: ARITHMETIC AND RELATIONAL OPERATORS
+
+========================================
+1. ARITHMETIC OPERATORS
+========================================
+
+Arithmetic operators perform mathematical operations.
+
+1. Addition (+)
+   Example: 10 + 5 = 15
+
+2. Subtraction (-)
+   Example: 10 - 5 = 5
+
+3. Multiplication (*)
+   Example: 10 * 5 = 50
+
+4. Division (/)
+   Example: 10 / 5 = 2
+
+5. Modulus (%)
+   Returns the remainder.
+   Example: 10 % 3 = 1
+
+6. Unary Plus (+)
+   Indicates a positive value.
+   Example: +10 = 10
+
+7. Unary Minus (-)
+   Changes the sign of a value.
+   Example: -10
+
+8. Increment (++)
+   Increases a variable by 1.
+   Example: a++ or ++a
+
+9. Decrement (--)
+   Decreases a variable by 1.
+   Example: a-- or --a
+
+
+========================================
+2. INCREMENT OPERATORS
+========================================
+
+There are two types:
+
+A. PRE-INCREMENT (++a)
+   Increments first, then uses the value.
+
+   int a = 5;
+   int b = ++a;
+
+   Output:
+   a = 6
+   b = 6
+
+B. POST-INCREMENT (a++)
+   Uses the current value first, then increments.
+
+   int a = 5;
+   int b = a++;
+
+   Output:
+   a = 6
+   b = 5
+
+
+========================================
+3. DECREMENT OPERATORS
+========================================
+
+A. PRE-DECREMENT (--a)
+   Decrements first, then uses the value.
+
+   int a = 5;
+   int b = --a;
+
+   Output:
+   a = 4
+   b = 4
+
+B. POST-DECREMENT (a--)
+   Uses the current value first, then decrements.
+
+   int a = 5;
+   int b = a--;
+
+   Output:
+   a = 4
+   b = 5
+
+
+========================================
+4. IMPORTANT ARITHMETIC RULES
+========================================
+
+1. Integer division removes the fractional part.
+
+   System.out.println(7 / 2);
+   Output: 3
+
+2. Floating-point division can return decimals.
+
+   System.out.println(7.0 / 2);
+   Output: 3.5
+
+3. Modulus returns the remainder.
+
+   System.out.println(10 % 3);
+   Output: 1
+
+4. Division of an integer by zero causes
+   ArithmeticException.
+
+5. The + operator also concatenates Strings.
+
+   System.out.println("Java" + 10);
+   Output: Java10
+
+
+========================================
+5. RELATIONAL OPERATORS
+========================================
+
+Relational operators compare two values.
+
+Their result is always boolean:
+true or false.
+
+1. Equal to (==)
+   Example: 5 == 5
+   Result: true
+
+2. Not equal to (!=)
+   Example: 5 != 3
+   Result: true
+
+3. Greater than (>)
+   Example: 8 > 5
+   Result: true
+
+4. Less than (<)
+   Example: 3 < 5
+   Result: true
+
+5. Greater than or equal to (>=)
+   Example: 5 >= 5
+   Result: true
+
+6. Less than or equal to (<=)
+   Example: 4 <= 5
+   Result: true
+
+
+========================================
+6. EXAMPLE OF RELATIONAL OPERATORS
+========================================
+
+int a = 10;
+int b = 20;
+
+System.out.println(a == b);  // false
+System.out.println(a != b);  // true
+System.out.println(a > b);   // false
+System.out.println(a < b);   // true
+System.out.println(a >= b);  // false
+System.out.println(a <= b);  // true
+
+
+========================================
+7. IMPORTANT DIFFERENCES
+========================================
+
+=  : Assignment operator
+== : Equality comparison operator
+
+Example:
+
+int a = 10;
+System.out.println(a == 10);
+
+Output:
+true
+
+Remember:
+- Arithmetic operators perform calculations.
+- Relational operators compare values.
+- Relational expressions return true or false.
+- ++ increases by 1.
+- -- decreases by 1.
+- % returns the remainder.
+
+
+========================================
+8. QUICK REVISION
+========================================
+
+1. 10 + 5 = 15
+2. 10 - 5 = 5
+3. 10 * 5 = 50
+4. 7 / 2 = 3
+5. 7.0 / 2 = 3.5
+6. 10 % 3 = 1
+7. ++a = Pre-increment
+8. a++ = Post-increment
+9. --a = Pre-decrement
+10. a-- = Post-decrement
+11. == means Equal to
+12. != means Not equal to
+13. > means Greater than
+14. < means Less than
+15. >= means Greater than or equal to
+16. <= means Less than or equal to
+
+END OF DAY-06 NOTES
