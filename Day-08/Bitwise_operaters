@@ -1,0 +1,105 @@
+1. BITWISE OPERATORS
+========================================
+
+Bitwise operators perform operations on individual bits
+(0s and 1s) of integer values.
+
+Types of Bitwise Operators:
+
+1. AND (&)
+   Returns 1 if both bits are 1.
+
+   1 & 1 = 1
+   1 & 0 = 0
+
+2. OR (|)
+   Returns 1 if at least one bit is 1.
+
+   1 | 1 = 1
+   1 | 0 = 1
+
+3. XOR (^)
+   Returns 1 if both bits are different.
+
+   1 ^ 1 = 0
+   1 ^ 0 = 1
+
+4. NOT (~)
+   Inverts all bits (0 becomes 1 and 1 becomes 0).
+
+   ~5 = -6
+
+========================================
+2. BITWISE OPERATORS EXAMPLES
+========================================
+
+Let:
+int a = 5;  // 0101
+int b = 3;  // 0011
+
+AND (&):
+  0101
+& 0011
+------
+  0001
+
+Output: 1
+
+OR (|):
+  0101
+| 0011
+------
+  0111
+
+Output: 7
+
+XOR (^):
+  0101
+^ 0011
+------
+  0110
+
+Output: 6
+
+NOT (~):
+~5 = -6
+
+========================================
+3. SHIFT OPERATORS
+========================================
+
+Shift operators move bits left or right.
+
+1. Left Shift (<<)
+   Shifts bits to the left.
+   Example: 5 << 1 = 10
+
+2. Signed Right Shift (>>)
+   Shifts bits to the right and preserves the sign bit.
+   Example: 8 >> 1 = 4
+
+3. Unsigned Right Shift (>>>)
+   Shifts bits to the right and fills empty positions
+   with 0.
+
+========================================
+4. QUICK REVISION
+========================================
+
+&   = Bitwise AND
+|   = Bitwise OR
+^   = Bitwise XOR
+~   = Bitwise NOT
+<<  = Left Shift
+>>  = Signed Right Shift
+>>> = Unsigned Right Shift
+
+Remember:
+1. AND: Both bits must be 1.
+2. OR: At least one bit must be 1.
+3. XOR: Bits must be different.
+4. NOT: Inverts all bits.
+5. Left shift generally multiplies by powers of 2
+   when no overflow occurs.
+
+END OF BITWISE OPERATORS
