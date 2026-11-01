@@ -1,0 +1,27 @@
+abstract class Employee {
+    abstract void work();
+}
+
+class Manager extends Employee {
+    void work() {
+        System.out.println("Managing");
+    }
+}
+
+class Developer extends Employee {
+    void work() {
+        System.out.println("Coding");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Employee e;
+
+        e = new Manager();
+        e.work();
+
+        e = new Developer();
+        e.work();
+    }
+}
