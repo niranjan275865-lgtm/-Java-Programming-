@@ -1,0 +1,34 @@
+class Shared {
+    synchronized void message() {
+        try {
+            System.out.println("Thread is waiting");
+            wait();
+
+            System.out.println("Thread is resumed");
+        }
+        catch (InterruptedException e) {
+            System.out.println(e);
+        }
+    }
+
+    synchronized void send() {
+        System.out.println("Notification sent");
+        notify();
+    }
+}
+
+public class CommunicationExample {
+    public static void main(String[] args)
+            throws InterruptedException {
+
+        Shared s = new Shared();
+
+        Thread t = new Thread(() -> s.message());
+
+        t.start();
+
+        Thread.sleep(1000);
+
+        s.send();
+    }
+}
