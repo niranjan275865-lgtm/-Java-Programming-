@@ -1,0 +1,19 @@
+class Counter {
+    synchronized void display() {
+        for (int i = 1; i <= 5; i++) {
+            System.out.println(i);
+        }
+    }
+}
+
+public class SyncExample {
+    public static void main(String[] args) {
+        Counter c = new Counter();
+
+        Thread t1 = new Thread(() -> c.display());
+        Thread t2 = new Thread(() -> c.display());
+
+        t1.start();
+        t2.start();
+    }
+}
