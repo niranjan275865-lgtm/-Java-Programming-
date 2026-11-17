@@ -1,0 +1,487 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Basic Calculator</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, #dbeafe, #eef2ff);
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.calculator {
+    width: min(100%, 360px);
+    background: #172033;
+    padding: 22px;
+    border-radius: 22px;
+    box-shadow: 0 18px 45px #17203335;
+}
+
+h1 {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 16px;
+}
+
+.screen {
+    min-height: 94px;
+    background: #0d1525;
+    color: white;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    overflow: hidden;
+}
+
+#history {
+    color: #9caec8;
+    font-size: 13px;
+    min-height: 18px;
+}
+
+#display {
+    font-size: clamp(28px, 8vw, 38px);
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.keys {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+button {
+    border: 0;
+    border-radius: 12px;
+    min-height: 62px;
+    font-size: 21px;
+    font-weight: 600;
+    cursor: pointer;
+    background: #e8edf5;
+    color: #172033;
+    transition: transform .08s, filter .08s;
+}
+
+button:active {
+    transform: scale(.96);
+    filter: brightness(.92);
+}
+
+.utility {
+    background: #cbd8eb;
+}
+
+.operator {
+    background: #8db7f5;
+}
+
+.equals {
+    background: #2563eb;
+    color: white;
+}
+
+.zero {
+    grid-column: span 2;
+}
+
+.hint {
+    color: #aab6c8;
+    text-align: center;
+    font-size: 12px;
+    margin: 15px 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    button {
+        transition: none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<main class="calculator" aria-label="Basic calculator">
+
+    <h1>Basic Calculator</h1>
+
+    <section class="screen" aria-live="polite">
+        <div id="history"></div>
+        <div id="display">0</div>
+    </section>
+
+    <section class="keys">
+
+        <button class="utility" data-action="clear">C</button>
+        <button class="utility" data-action="delete">⌫</button>
+        <button class="utility" data-action="percent">%</button>
+        <button class="operator" data-op="/">÷</button>
+
+        <button data-number="7">7</button>
+        <button data-number="8">8</button>
+        <button data-number="9">9</button>
+        <button class="operator" data-op="*">×</button>
+
+        <button data-number="4">4</button>
+        <button data-number="5">5</button>
+        <button data-number="6">6</button>
+        <button class="operator" data-op="-">−</button>
+
+        <button data-number="1">1</button>
+        <button data-number="2">2</button>
+        <button data-number="3">3</button>
+        <button class="operator" data-op="+">+</button>
+
+        <button class="utility" data-action="sign">+/−</button>
+        <button class="zero" data-number="0">0</button>
+        <button data-action="decimal">.</button>
+        <button class="equals" data-action="equals">=</button>
+
+    </section>
+
+    <p class="hint">
+        Works offline · Mouse, touch and keyboard supported
+    </p>
+
+</main>
+
+<script>
+(() => {
+
+    const display = document.getElementById("display");
+    const history = document.getElementById("history");
+
+    let current = "0";
+    let stored = null;
+    let operator = null;
+    let startNew = false;
+
+    function show() {
+        display.textContent = current;
+    }
+
+    function format(number) {
+
+        if (!Number.isFinite(number)) {
+            return "Error";
+        }
+
+        return String(Number(number.toPrecision(12)));
+    }
+
+    function getSymbol(op) {
+
+        if (op === "*") return "×";
+        if (op === "/") return "÷";
+
+        return op;
+    }
+
+    function clear() {
+
+        current = "0";
+        stored = null;
+        operator = null;
+        startNew = false;
+
+        history.textContent = "";
+
+        show();
+    }
+
+    function calculate(a, b, op) {
+
+        switch (op) {
+
+            case "+":
+                return a + b;
+
+            case "-":
+                return a - b;
+
+            case "*":
+                return a * b;
+
+            case "/":
+                return b === 0 ? Number.NaN : a / b;
+
+            default:
+                return b;
+        }
+    }
+
+    function inputDigit(digit) {
+
+        if (current === "Error" || startNew) {
+
+            current = digit;
+            startNew = false;
+
+        } else if (current === "0") {
+
+            current = digit;
+
+        } else if (current.replace("-", "").length < 15) {
+
+            current += digit;
+        }
+
+        show();
+    }
+
+    function chooseOperator(op) {
+
+        if (current === "Error") {
+            clear();
+            return;
+        }
+
+        if (operator && stored !== null && !startNew) {
+
+            const result = calculate(
+                stored,
+                Number(current),
+                operator
+            );
+
+            current = format(result);
+
+            if (current === "Error") {
+
+                stored = null;
+                operator = null;
+                startNew = true;
+
+                show();
+                return;
+            }
+
+            stored = Number(current);
+
+        } else if (!operator) {
+
+            stored = Number(current);
+        }
+
+        operator = op;
+        startNew = true;
+
+        history.textContent =
+            `${current} ${getSymbol(op)}`;
+
+        show();
+    }
+
+    function equals() {
+
+        if (
+            !operator ||
+            stored === null ||
+            startNew ||
+            current === "Error"
+        ) {
+            return;
+        }
+
+        const a = stored;
+        const b = Number(current);
+        const op = operator;
+
+        const result = calculate(a, b, op);
+
+        history.textContent =
+            `${format(a)} ${getSymbol(op)} ${format(b)} =`;
+
+        current = format(result);
+
+        stored = null;
+        operator = null;
+        startNew = true;
+
+        show();
+    }
+
+    function deleteDigit() {
+
+        if (current === "Error") {
+            clear();
+            return;
+        }
+
+        if (startNew) {
+            return;
+        }
+
+        current = current.slice(0, -1);
+
+        if (current === "" || current === "-") {
+            current = "0";
+        }
+
+        show();
+    }
+
+    function addDecimal() {
+
+        if (current === "Error" || startNew) {
+
+            current = "0.";
+            startNew = false;
+
+        } else if (!current.includes(".")) {
+
+            current += ".";
+        }
+
+        show();
+    }
+
+    function changeSign() {
+
+        if (current === "Error" || Number(current) === 0) {
+            return;
+        }
+
+        current = format(-Number(current));
+
+        show();
+    }
+
+    function percentage() {
+
+        if (current === "Error") {
+            return;
+        }
+
+        current = format(Number(current) / 100);
+        startNew = true;
+
+        show();
+    }
+
+    function action(name) {
+
+        switch (name) {
+
+            case "clear":
+                clear();
+                break;
+
+            case "delete":
+                deleteDigit();
+                break;
+
+            case "decimal":
+                addDecimal();
+                break;
+
+            case "sign":
+                changeSign();
+                break;
+
+            case "percent":
+                percentage();
+                break;
+
+            case "equals":
+                equals();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    function handleClick(event) {
+
+        const button = event.target.closest("button");
+
+        if (!button) return;
+
+        if (button.dataset.number !== undefined) {
+
+            inputDigit(button.dataset.number);
+
+        } else if (button.dataset.op) {
+
+            chooseOperator(button.dataset.op);
+
+        } else if (button.dataset.action) {
+
+            action(button.dataset.action);
+        }
+    }
+
+    function handleKeyboard(event) {
+
+        if (/^\d$/.test(event.key)) {
+
+            inputDigit(event.key);
+            return;
+        }
+
+        if (event.key === ".") {
+            action("decimal");
+            return;
+        }
+
+        if (["+", "-", "*", "/"].includes(event.key)) {
+            chooseOperator(event.key);
+            return;
+        }
+
+        switch (event.key) {
+
+            case "Enter":
+            case "=":
+                event.preventDefault();
+                equals();
+                break;
+
+            case "Backspace":
+                action("delete");
+                break;
+
+            case "Escape":
+                clear();
+                break;
+
+            case "%":
+                action("percent");
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    document.querySelector(".keys")
+        .addEventListener("click", handleClick);
+
+    document.addEventListener("keydown", handleKeyboard);
+
+    show();
+
+})();
+</script>
+
+</body>
+</html>
